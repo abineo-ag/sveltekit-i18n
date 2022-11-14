@@ -1,0 +1,43 @@
+{
+	"name": "@rokkett/svelte-i18n",
+	"version": "0.1.0",
+	"description": "Rollup/Vite Plugin to transpile JSON into TypeScript for Svelte and Sveltekit. (Typescript only)",
+	"author": "Christoph Schneider",
+	"license": "ISC",
+	"repository": {
+		"type": "git",
+		"url": "git+ssh://git@gitlab.com/rokkett/svelte-i18n.git"
+	},
+	"homepage": "https://gitlab.com/rokkett/svelte-i18n/-/blob/main/README.md",
+	"keywords": [
+		"i18n",
+		"typscript",
+		"svelte",
+		"sveltekit"
+	],
+	"bugs": {
+		"url": "https://gitlab.com/rokkett/svelte-i18n/-/issues"
+	},
+	"scripts": {
+		"build": "tsc",
+		"test": "jest",
+		"coverage": "jest --coverage"
+	},
+	"peerDependencies": {
+		"svelte": "^3.x",
+		"typescript": "^4.x"
+	},
+	"devDependencies": {
+		"@babel/preset-typescript": "^7.18.6",
+		"@types/jest": "^29.2.2",
+		"jest": "^29.3.1",
+		"ts-jest": "^29.0.3"
+	},
+	"type": "module",
+	"files": [
+		"dist"
+	],
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts"
+}
