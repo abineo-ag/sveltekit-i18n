@@ -11,8 +11,10 @@ export interface PluginOptions {
 	folder: string;
 	/** The default type assigned to a parameter inside a resource string */
 	defaultParamType: string;
-	/** Display debug information */
-	_debug: boolean;
+	/** Create gitignore file */
+	createGitignore: boolean;
+	/** Create summary file in json format containing errors or missing translations */
+	createSummary: boolean;
 }
 
 export const defaultOptions: PluginOptions = {
@@ -20,7 +22,8 @@ export const defaultOptions: PluginOptions = {
 	out: './src/lib/i18n',
 	folder: 'types',
 	defaultParamType: 'any',
-	_debug: false,
+	createGitignore: true,
+	createSummary: true,
 };
 
 export function plugin(opts: Partial<PluginOptions> = defaultOptions) {
