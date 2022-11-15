@@ -1,3 +1,2 @@
-export function add(a: number, b: number): number {
-	return a + b;
-}
+import { plugin } from './plugin';
+export default plugin;

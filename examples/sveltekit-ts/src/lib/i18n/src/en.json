@@ -1,0 +1,12 @@
+{
+	"foo": "bar",
+	"people": {
+		"alice": "Alice Anderson",
+		"bob": "Robert Bean",
+		"any": "{{fullname}}"
+	},
+	"things": {
+		"one": "There is a thing.",
+		"mutliple": "There are {{count:number}} things."
+	}
+}
