@@ -1,1 +1,0 @@
-export const codes = ["de-CH.json","dir","en.json","foo.json"]

@@ -1,6 +1,7 @@
 export interface Parameter {
 	name: string;
 	type: string;
+	string: string;
 }
 
 export interface ResourceItem {

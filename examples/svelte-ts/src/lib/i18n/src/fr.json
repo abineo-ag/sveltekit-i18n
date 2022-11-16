@@ -6,7 +6,7 @@
 		"any": "{fullname}"
 	},
 	"things": {
-		"one": "There is a thing.",
-		"mutliple": "There are { count : number } things."
+		"one": "La est un truc.",
+		"mutliple": "La sont { mehrere : number } trucs."
 	}
 }

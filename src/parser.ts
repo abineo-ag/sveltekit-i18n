@@ -1,10 +1,10 @@
 import { jsoncSafe as jsonc } from 'jsonc/lib/jsonc.safe';
-import { Parameter, Resource, Summary, Translation } from './types';
+import { Parameter, Resource, Summary, SummaryItem, Translation } from './types';
 
 // Match valid json key in curly brackets with optional type separated by a colon
-// https://regex101.com/r/F2mkIm/1
+// https://regex101.com/r/ZAhsUS/1
 // example: 'Hello {name}, you are {{ age: number }} years old.' => [name, any | string] and [age, number]
-const REGEX = new RegExp(/(?<!\\)\{+\s*([a-z]+[a-z0-9]*)\s*:?\s*([a-z]+[a-z0-9]*)*\s*(?<!\\)\}+/gi);
+const PARAM = new RegExp(/\{\s*([a-z]+[a-z0-9]*)\s*:?\s*([a-z]+[a-z0-9]*)*\s*\}/gi);
 
 let defaultType = 'any';
 
@@ -46,20 +46,61 @@ export function toResource(key: string, value: any): Resource {
 
 export function getParams(str: string): Parameter[] {
 	const params: Parameter[] = [];
-	const matches = str.matchAll(REGEX);
+	const matches = str.matchAll(PARAM);
 	for (const match of matches) {
 		if (match[1]) {
-			params.push({ name: match[1], type: match[2] || defaultType });
+			params.push({ string: match[0], name: match[1], type: match[2] || defaultType });
 		}
 	}
 	return params;
 }
 
-export function toSummary(resources: Resource[]): Summary {
-	// TODO: implement merging
-	return {
-		key: '<root>',
-		languages: [],
-		items: [],
-	};
+export function toSummary(translations: Translation[]): Summary {
+	function summarize(items: [string, Resource[]][]): (Summary | SummaryItem)[] {
+		const keys: Set<string> = new Set();
+		items.forEach((item) => item[1].forEach((rsc) => keys.add(rsc.key)));
+
+		const sums = [];
+		keys.forEach((key) => {
+			const rscItems: [string, Resource][] = items
+				.filter((item) => item[1].find((rsc) => rsc.key === key))
+				.map((item) => {
+					const rsc = item[1].find((rsc) => rsc.key === key);
+					return [item[0], rsc];
+				});
+			const languages = rscItems.map((item) => item[0]);
+			if (rscItems.some((i) => 'items' in i[1])) {
+				const items = summarize(
+					rscItems
+						.filter((item) => 'items' in item[1])
+						// @ts-ignore ('items' in item[1] is not recognised)
+						.map((item) => [item[0], item[1].items])
+				);
+				sums.push({ key, items, languages });
+			} else if (rscItems.some((i) => 'params' in i[1])) {
+				const params: Parameter[] = [];
+				rscItems
+					.filter((item) => 'params' in item[1])
+					.forEach((item) =>
+						// @ts-ignore ('params' in item[1] is not recognised)
+						item[1].params.forEach((param: Parameter) => {
+							const index = params.findIndex((p) => p.name === param.name);
+							if (index > -1) {
+								if (!params[index].type.includes(param.type)) {
+									params[index].type += ` | ${param.type}`;
+								}
+							} else {
+								params.push(param);
+							}
+						})
+					);
+				sums.push({ key, params, languages });
+			}
+		});
+		return sums;
+	}
+
+	const items = summarize(translations.map((t) => [t.lang, t.items]));
+	const languages = translations.map((t) => t.lang);
+	return { key: '<root>', languages, items };
 }

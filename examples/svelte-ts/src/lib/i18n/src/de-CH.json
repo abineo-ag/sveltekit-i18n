@@ -3,10 +3,11 @@
 	"people": {
 		"alice": "Alice Anderson",
 		"bob": "Robert Bean",
-		"any": "{{fullname}}"
+		"any": "{fullname}"
 	},
 	"things": {
 		"one": "Da ist ein Ding.",
-		"mutliple": "Da sind {{count:number}} Dinge."
-	}
+		"mutliple": "Da sind { mehrere : number } Dinge."
+	},
+	"obacht": "Achtung {{ sachen }}"
 }
