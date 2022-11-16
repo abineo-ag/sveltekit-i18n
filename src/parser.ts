@@ -50,7 +50,13 @@ export function getParams(str: string): Parameter[] {
 	const matches = str.matchAll(new RegExp(PARAM));
 	for (const match of matches) {
 		if (match[1]) {
-			params.push({ string: match[0], name: match[1], type: match[2] || defaultType });
+			const newParam = { strings: [match[0]], name: match[1], type: match[2] || defaultType };
+			const existing = params.findIndex((param) => param.name === newParam.name);
+			if (existing > -1) {
+				params[existing].strings.push(newParam.strings[0]);
+				if (params[existing].type !== newParam.type)
+					params[existing].type += ' | ' + newParam.type;
+			} else params.push(newParam);
 		}
 	}
 	return params;

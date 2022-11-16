@@ -1,23 +1,51 @@
 import fileheader from '../assets/fileheader';
-import { Resource, Summary, Translation } from '../types';
+import { Translation, Summary, Resource } from '../types';
 
-export function toTranslationFile(translation: Translation, summary: Summary): string {
-	function toType(rsc: Resource, indent: number = 0): string {
-		let code = '';
-		const pad = '\t'.repeat(indent);
-		if ('items' in rsc) {
-			code = rsc.items.map((r) => toType(r, indent + 1)).join('\n');
-			// FIXME
-		} else if (rsc.template && rsc.params) {
-			// FIXME
-		}
+const tab = (i: number) => '\t'.repeat(i);
 
-		return code;
+export function toTranslationFile(translation: Translation): string {
+	function toLines(items: Resource[], i = 1): string {
+		console.log(translation.lang, i);
+
+		return items
+			.map((item) => {
+				let line = `${tab(i)}${item.key}: `;
+				if ('params' in item) {
+					if (item.params.length > 0) {
+						const params = item.params.map((p) => `${p.name}: ${p.type}`).join(', ');
+						let template = item.template;
+						item.params.forEach((param) => {
+							param.strings.forEach((string) => {
+								if (template.split(string).length > 1)
+									console.log(string, template.split(string));
+								template = template.split(string).join('${' + param.name + '}');
+							});
+						});
+						line += `(${params}): string => \`${template}\`,`;
+					} else {
+						line += `'${item.template}',`;
+					}
+				} else {
+					line += '{\n';
+					line += toLines(item.items, i + 1);
+					line += `\n${tab(i)}},`;
+				}
+				return line;
+			})
+			.join('\n');
 	}
 
-	let code = 'import { Translation } from "..";\n';
-	code += translation.items.map((rsc) => toType(rsc)).join('\n');
+	return (
+		fileheader() +
+		`
+import type { Translation } from '../types';
 
-	// TODO implement me
-	return fileheader();
+/** ${translation.lang} */
+const translation: Translation = {
+${toLines(translation.items)}
+}
+
+export default translation;
+`
+	);
 }

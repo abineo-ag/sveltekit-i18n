@@ -53,10 +53,10 @@ export default function (options: PluginOptions) {
 			files.push([path.join(outDir, 'summary.jsonc'), toSummaryFile(summary)]);
 		}
 		translations.forEach((translation) => {
-			[
+			files.push([
 				path.join(tsOutDir, `${translation.lang}.ts`),
-				toTranslationFile(translation, summary),
-			];
+				toTranslationFile(translation),
+			]);
 		});
 		fs.rmSync(tsOutDir, { recursive: true, force: true });
 		fs.mkdirSync(tsOutDir, { recursive: true });
