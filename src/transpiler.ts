@@ -37,7 +37,7 @@ export default function (options: PluginOptions) {
 			files.push([path.join(outDir, '.gitignore'), toGitignore(options.folder)]);
 		}
 		if (options.createSummary) {
-			files.push([path.join(outDir, 'summary.json'), toSummaryFile(summary)]);
+			files.push([path.join(outDir, 'summary.jsonc'), toSummaryFile(summary)]);
 		}
 		translations.forEach((translation) => {
 			[

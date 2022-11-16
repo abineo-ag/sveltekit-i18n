@@ -1,4 +1,5 @@
 import { jsoncSafe as jsonc } from 'jsonc/lib/jsonc.safe';
+import { isEqual } from 'lodash-es';
 import { Parameter, Resource, Summary, SummaryItem, Translation } from './types';
 
 // Match valid json key in curly brackets with optional type separated by a colon
@@ -78,23 +79,20 @@ export function toSummary(translations: Translation[]): Summary {
 				);
 				sums.push({ key, items, languages });
 			} else if (rscItems.some((i) => 'params' in i[1])) {
-				const params: Parameter[] = [];
-				rscItems
+				const allParams: Parameter[][] = rscItems
 					.filter((item) => 'params' in item[1])
-					.forEach((item) =>
-						// @ts-ignore ('params' in item[1] is not recognised)
-						item[1].params.forEach((param: Parameter) => {
-							const index = params.findIndex((p) => p.name === param.name);
-							if (index > -1) {
-								if (!params[index].type.includes(param.type)) {
-									params[index].type += ` | ${param.type}`;
-								}
-							} else {
-								params.push(param);
-							}
-						})
-					);
-				sums.push({ key, params, languages });
+					// @ts-ignore ('params' in item[1] is defined)
+					.map((item) => item[1].params);
+				const params: Parameter[] = allParams.pop();
+				let paramErr = false;
+				for (const p of allParams) {
+					if (!isEqual(params, p)) {
+						paramErr = true;
+						break;
+					}
+				}
+				allParams.forEach((prms) => {});
+				sums.push({ key, params, languages, paramErr });
 			}
 		});
 		return sums;

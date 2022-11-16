@@ -7,6 +7,6 @@
 	},
 	"things": {
 		"one": "La est un truc.",
-		"mutliple": "La sont { mehrere : number } trucs."
+		"mutliple": "La sont { mehrere : number } {dinge}."
 	}
 }

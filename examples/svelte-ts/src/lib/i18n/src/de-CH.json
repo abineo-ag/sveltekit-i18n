@@ -7,7 +7,7 @@
 	},
 	"things": {
 		"one": "Da ist ein Ding.",
-		"mutliple": "Da sind { mehrere : number } Dinge."
+		"mutliple": "Da sind {mehrere: number} {dinge}."
 	},
 	"obacht": "Achtung {{ sachen }}"
 }

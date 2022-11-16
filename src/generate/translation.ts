@@ -1,3 +1,4 @@
+import fileheader from '../assets/fileheader';
 import { Resource, Summary, Translation } from '../types';
 
 export function toTranslationFile(translation: Translation, summary: Summary): string {
@@ -18,5 +19,5 @@ export function toTranslationFile(translation: Translation, summary: Summary): s
 	code += translation.items.map((rsc) => toType(rsc)).join('\n');
 
 	// TODO implement me
-	return '';
+	return fileheader();
 }

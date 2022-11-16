@@ -26,6 +26,7 @@ export interface SummaryItem {
 	key: string;
 	languages: string[];
 	params: Parameter[];
+	paramErr: boolean;
 }
 
 export interface Summary {

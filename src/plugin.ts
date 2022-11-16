@@ -20,8 +20,8 @@ export interface PluginOptions {
 export const defaultOptions: PluginOptions = {
 	src: './src/lib/i18n/src',
 	out: './src/lib/i18n',
-	folder: 'types',
-	defaultParamType: 'any',
+	folder: 'dist',
+	defaultParamType: 'string',
 	createGitignore: true,
 	createSummary: true,
 };
