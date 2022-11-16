@@ -36,11 +36,6 @@ export function toSummaryFile(summary: Summary): string {
 			if ('items' in item) {
 				let line = `${tab(i)}"${key}": {\n`;
 				const itemAttrs = Object.keys(item.items);
-				if (item.errors.length > 0) {
-					line += `"": "${item.errors.join(' ')}"`;
-					if (itemAttrs.length > 0) line += ',';
-					line += '\n';
-				}
 				if (itemAttrs.length > 0) {
 					line += getLines(item.items, i + 1);
 				}

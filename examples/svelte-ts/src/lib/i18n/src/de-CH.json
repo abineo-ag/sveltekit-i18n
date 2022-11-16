@@ -9,5 +9,7 @@
 		"one": "Da ist ein Ding.",
 		"mutliple": "Da sind {mehrere: number} {dinge}."
 	},
-	"obacht": "Achtung {{ sachen }}"
+	"obacht": {
+		"achtung": "Achtung {{ sachen }}"
+	}
 }
