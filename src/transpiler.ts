@@ -9,6 +9,9 @@ import { parse, configure, toLanguageCode, toSummary } from './parser';
 import { PluginOptions } from './plugin';
 import { Summary, Translation } from './types';
 
+// https://regex101.com/r/duqj7S/1
+const VALID_LANG = new RegExp(/^[a-z]{2,}(-[a-z]{2,})*$/gi);
+
 export default function (options: PluginOptions) {
 	const srcDir = path.join(...options.src.split(/[\\\/]+/g));
 	const outDir = path.join(...options.out.split(/[\\\/]+/g));
@@ -26,12 +29,22 @@ export default function (options: PluginOptions) {
 	}
 
 	function transpile() {
-		const entries = fs.readdirSync(srcDir);
+		const entries = fs.readdirSync(srcDir).filter((file) => {
+			if (!file.includes('.json')) return false; // '.jsonc' matches as well
+			const lang = file.split('.json')[0]; // works for '.jsonc' matches as well
+			if (VALID_LANG.test(lang)) return true;
+			else {
+				console.error(
+					`ignore file '${file}' because '${lang}' is not a valid language code`
+				);
+				return false;
+			}
+		});
 		const translations = entries.map((filename) => parseFile(filename));
 		const summary: Summary = toSummary(translations);
 		const files: [file: string, content: string][] = [
 			[path.join(outDir, 'types.ts'), toTypesFile(summary)],
-			[path.join(outDir, 'index.ts'), toIndexFile(summary)],
+			[path.join(outDir, 'index.ts'), toIndexFile(summary, options.folder)],
 		];
 		if (options.createGitignore) {
 			files.push([path.join(outDir, '.gitignore'), toGitignore(options.folder)]);

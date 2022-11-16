@@ -19,7 +19,7 @@ export function toSummaryFile(summary: Summary): string {
 			const missing = summary.languages.filter(
 				(language) => !item.languages.includes(language)
 			);
-			if (missing.length > 0) errors.push(`${ERR} missing: ${missing.join()}`);
+			if (missing.length > 0) errors.push(`${ERR} ${missing.join()} missing`);
 			if ('paramErr' in item && item.paramErr) errors.push(`${ERR} different parameters`);
 			obj[item.key].errors = errors;
 		});
