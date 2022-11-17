@@ -3,10 +3,10 @@
 	"people": {
 		"alice": "Alice Anderson",
 		"bob": "Robert Bean",
-		"any": "{{fullname}}"
+		"any": "{fullname}"
 	},
 	"things": {
 		"one": "There is a thing.",
-		"mutliple": "There are {{count:number}} things."
+		"mutliple": "There are { count : number } {dinge}."
 	}
 }

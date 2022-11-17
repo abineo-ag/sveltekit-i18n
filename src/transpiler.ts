@@ -44,7 +44,10 @@ export default function (options: PluginOptions) {
 		const summary: Summary = toSummary(translations);
 		const files: [file: string, content: string][] = [
 			[path.join(outDir, 'types.ts'), toTypesFile(summary)],
-			[path.join(outDir, 'index.ts'), toIndexFile(summary, options.folder)],
+			[
+				path.join(outDir, 'index.ts'),
+				toIndexFile(summary, options.folder, options.defaultLanguage),
+			],
 		];
 		if (options.createGitignore) {
 			files.push([path.join(outDir, '.gitignore'), toGitignore(options.folder)]);

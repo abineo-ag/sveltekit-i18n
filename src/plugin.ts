@@ -15,6 +15,8 @@ export interface PluginOptions {
 	createGitignore: boolean;
 	/** Create summary file in json format containing errors or missing translations */
 	createSummary: boolean;
+	/** The language that gets selected per default */
+	defaultLanguage?: string;
 }
 
 export const defaultOptions: PluginOptions = {

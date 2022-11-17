@@ -1,23 +1,27 @@
 import fileheader from '../assets/fileheader';
 import { Summary } from '../types';
 
-export function toIndexFile(summary: Summary, folder: string): string {
+export function toIndexFile(summary: Summary, folder: string, defaultLanguage?: string): string {
+	defaultLanguage = summary.languages.includes(defaultLanguage)
+		? defaultLanguage
+		: summary.languages[0];
 	return (
 		fileheader() +
 		`
 import { writable, derived, type Writable } from 'svelte/store';
 import type { Language, Translation } from './types';
+import defaultLanguage from './${folder}/${defaultLanguage}';
 
 export const availableLanguages: Language[] = ['${summary.languages.join("', '")}'];
 
-const selected = writable('');
+const selected = writable('${defaultLanguage}');
 
-let translation: Writable<Translation | null> = writable(null);
+let translation: Writable<Translation> = writable(defaultLanguage);
 
 export async function setLanguage(language: Language) {
-	const translation = await import('./${folder}/' + language);
+	const newTranslation = await import('./${folder}/' + language);
 	selected.set(language);
-	translation.set(translation);
+	translation.set(newTranslation);
 }
 
 export const t = derived([translation], ([$translation]) => {
