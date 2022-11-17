@@ -5,7 +5,7 @@ import { Parameter, Resource, Summary, SummaryItem, Translation } from './types'
 // Match valid json key in curly brackets with optional type separated by a colon
 // https://regex101.com/r/ZAhsUS/1
 // example: 'Hello {name}, you are {{ age: number }} years old.' => [name, any | string] and [age, number]
-const PARAM = new RegExp(/\{\s*([a-z]+[a-z0-9]*)\s*:?\s*([a-z]+[a-z0-9]*)*\s*\}/gi);
+const PARAM = /\{\s*([a-z]+[a-z0-9]*)\s*:?\s*([a-z]+[a-z0-9]*)*\s*\}/gi;
 
 let defaultType = 'any';
 
@@ -47,10 +47,16 @@ export function toResource(key: string, value: any): Resource {
 
 export function getParams(str: string): Parameter[] {
 	const params: Parameter[] = [];
-	const matches = str.matchAll(PARAM);
+	const matches = str.matchAll(new RegExp(PARAM));
 	for (const match of matches) {
 		if (match[1]) {
-			params.push({ string: match[0], name: match[1], type: match[2] || defaultType });
+			const newParam = { strings: [match[0]], name: match[1], type: match[2] || defaultType };
+			const existing = params.findIndex((param) => param.name === newParam.name);
+			if (existing > -1) {
+				params[existing].strings.push(newParam.strings[0]);
+				if (params[existing].type !== newParam.type)
+					params[existing].type += ' | ' + newParam.type;
+			} else params.push(newParam);
 		}
 	}
 	return params;

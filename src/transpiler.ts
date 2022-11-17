@@ -10,7 +10,7 @@ import { PluginOptions } from './plugin';
 import { Summary, Translation } from './types';
 
 // https://regex101.com/r/duqj7S/1
-const VALID_LANG = new RegExp(/^[a-z]{2,}(-[a-z]{2,})*$/gi);
+const VALID_LANG = /^[a-z]{2,}(-[a-z]{2,})*$/gi; //new RegExp(/^[a-z]{2,}(-[a-z]{2,})*$/gi);
 
 export default function (options: PluginOptions) {
 	const srcDir = path.join(...options.src.split(/[\\\/]+/g));
@@ -32,7 +32,7 @@ export default function (options: PluginOptions) {
 		const entries = fs.readdirSync(srcDir).filter((file) => {
 			if (!file.includes('.json')) return false; // '.jsonc' matches as well
 			const lang = file.split('.json')[0]; // works for '.jsonc' matches as well
-			if (VALID_LANG.test(lang)) return true;
+			if (new RegExp(VALID_LANG).test(lang)) return true;
 			else {
 				console.error(
 					`ignore file '${file}' because '${lang}' is not a valid language code`
@@ -53,10 +53,10 @@ export default function (options: PluginOptions) {
 			files.push([path.join(outDir, 'summary.jsonc'), toSummaryFile(summary)]);
 		}
 		translations.forEach((translation) => {
-			[
+			files.push([
 				path.join(tsOutDir, `${translation.lang}.ts`),
-				toTranslationFile(translation, summary),
-			];
+				toTranslationFile(translation),
+			]);
 		});
 		fs.rmSync(tsOutDir, { recursive: true, force: true });
 		fs.mkdirSync(tsOutDir, { recursive: true });

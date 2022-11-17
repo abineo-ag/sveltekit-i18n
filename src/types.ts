@@ -1,7 +1,7 @@
 export interface Parameter {
 	name: string;
 	type: string;
-	string: string;
+	strings: string[];
 }
 
 export interface ResourceItem {
