@@ -1,10 +1,7 @@
 node_modules
 coverage
 examples
-tests
 .prettierrc
-babel.config.js
 package-lock.json
 tsconfig.json
 *.yml
-*.cjs

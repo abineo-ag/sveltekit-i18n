@@ -1,9 +1,8 @@
 # Sveltekit Auto-Typed i18n
 
-![Status](https://gitlab.com/rokkett/sveltekit-i18n/badges/main/pipeline.svg?ignore_skipped=true&key_text=tests&key_width=40)
-![Coverage](https://gitlab.com/rokkett/sveltekit-i18n/badges/main/coverage.svg)
-![Beta](https://img.shields.io/badge/status-stable--beta-important)
-![npm](https://img.shields.io/npm/v/@rokkett/sveltekit-i18n)
+[![Status](https://gitlab.com/rokkett/sveltekit-i18n/badges/main/pipeline.svg?ignore_skipped=true&key_text=tests&key_width=40)](https://gitlab.com/rokkett/sveltekit-i18n/-/jobs/)
+[![Beta](https://img.shields.io/badge/status-stable--beta-important)](#sveltekit-auto-typed-i18n)
+[![npm](https://img.shields.io/npm/v/@rokkett/sveltekit-i18n)](#sveltekit-auto-typed-i18n)
 
 Rollup/Vite Plugin to transpile translations from JSON into TypeScript for Sveltekit.
 
