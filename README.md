@@ -1,4 +1,4 @@
-# Svelte Auto-Typed i18n
+# Sveltekit Auto-Typed i18n
 
 ![Status](https://gitlab.com/rokkett/sveltekit-i18n/badges/main/pipeline.svg?ignore_skipped=true&key_text=tests&key_width=40)
 ![Coverage](https://gitlab.com/rokkett/sveltekit-i18n/badges/main/coverage.svg)
