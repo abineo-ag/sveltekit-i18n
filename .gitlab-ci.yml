@@ -1,0 +1,30 @@
+image: node:latest
+
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+
+test:
+  stage: test
+  dependencies:
+    - build
+  script:
+    - npm install
+    - npm run test -- --verbose
+
+coverage:
+  stage: test
+  dependencies:
+    - build
+  only:
+    - main
+  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+  script:
+    - npm install
+    - npm run coverage -- --verbose
