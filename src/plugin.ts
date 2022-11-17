@@ -33,7 +33,7 @@ export function plugin(opts: Partial<PluginOptions> = defaultOptions) {
 	let watcher: fs.FSWatcher;
 
 	return {
-		name: 'rokkett-svelte-i18n',
+		name: 'rokkett-sveltekit-i18n',
 		buildStart() {
 			const { watchDir, transpile } = transpiler(options);
 			watcher = fs.watch(watchDir, { recursive: false }, debounce(transpile, 2000));
