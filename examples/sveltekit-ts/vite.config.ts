@@ -3,7 +3,7 @@ import type { UserConfig } from 'vite';
 import plugin from '../../dist';
 
 const config: UserConfig = {
-	plugins: [plugin({ _debug: true }), sveltekit()],
+	plugins: [plugin(), sveltekit()],
 };
 
 export default config;
