@@ -1,5 +1,5 @@
 import { FSWatcher, watch } from 'fs';
-import { debounce } from 'lodash-es';
+import { debounce } from 'lodash';
 import transpiler from './transpiler';
 
 export interface PluginOptions {

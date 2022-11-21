@@ -1,5 +1,5 @@
 import { jsoncSafe as jsonc } from 'jsonc/lib/jsonc.safe';
-import { isEqual } from 'lodash-es';
+import { isEqual } from 'lodash';
 import { Parameter, Resource, Summary, SummaryItem, Translation } from './types';
 
 // Match valid json key in curly brackets with optional type separated by a colon
