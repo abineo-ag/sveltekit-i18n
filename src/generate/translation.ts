@@ -1,12 +1,10 @@
 import fileheader from '../assets/fileheader';
-import { Translation, Summary, Resource } from '../types';
+import { Translation, Resource } from '../types';
 
 const tab = (i: number) => '\t'.repeat(i);
 
 export function toTranslationFile(translation: Translation): string {
 	function toLines(items: Resource[], i = 1): string {
-		console.log(translation.lang, i);
-
 		return items
 			.map((item) => {
 				let line = `${tab(i)}${item.key}: `;
@@ -17,8 +15,7 @@ export function toTranslationFile(translation: Translation): string {
 						item.params.forEach((param) => {
 							param.strings.forEach((string) => {
 								if (template.split(string).length > 1)
-									console.log(string, template.split(string));
-								template = template.split(string).join('${' + param.name + '}');
+									template = template.split(string).join('${' + param.name + '}');
 							});
 						});
 						line += `(${params}): string => \`${template}\`,`;

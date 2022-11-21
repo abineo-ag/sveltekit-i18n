@@ -6,8 +6,6 @@ Install `sveltekit-i18n` as a dev dependency.
 npm install --save-dev @rokkett/sveltekit-i18n
 ```
 
-## Vite
-
 ```ts
 // vite.config.ts
 import { sveltekit } from '@sveltejs/kit/vite';
@@ -15,33 +13,6 @@ import i18n from '@rokkett/sveltekit-i18n';
 
 export default {
 	plugins: [i18n(), sveltekit()],
-};
-```
-
-## Rollup
-
-**If possible, use vite as build tool. Vite uses rollup under the hood.**
-
-```js
-// THIS CODE IS UNTESTED, USE WITH CAUSION!
-import svelte from 'rollup-plugin-svelte';
-import resolve from '@rollup/plugin-node-resolve';
-import i18n from '@rokkett/sveltekit-i18n';
-
-export default {
-	input: 'src/main.js',
-	output: {
-		file: 'public/build/bundle.js',
-		format: 'iife',
-		name: 'app',
-	},
-	plugins: [
-		i18n(),
-		svelte({
-			include: 'src/**/*.svelte',
-		}),
-		resolve({ browser: true }),
-	],
 };
 ```
 
@@ -144,4 +115,29 @@ const translation: Translation = {
 	not_found: (thing: string) => `${thing} konnte nicht gefunden werden`,
 	invalid: (input: number): string => `${input} ist unglütig, ${input} ist zu klein`,
 };
+```
+
+# Output
+
+The plugin creates a index.ts in your output directory.
+
+```html
+// anywhere in your project
+<script lang="ts">
+	import { availableLanguages, selectedLanguage, setLanguage, t } from '$lib/i18n';
+</script>
+
+<p>{$t.not_found('foo')}</p>
+```
+
+## Summary
+
+The summary shows errors in parsing parameters or missing translations.
+
+```jsonc
+// src/i18n/summary.jsonc
+{
+	"not_found": "❌ different parameters", // thing: string
+	"invalid": "❌ en,fr missing" // input: string
+}
 ```

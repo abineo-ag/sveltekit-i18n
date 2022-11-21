@@ -2,9 +2,10 @@ import fileheader from '../assets/fileheader';
 import { Summary } from '../types';
 
 export function toIndexFile(summary: Summary, folder: string, defaultLanguage?: string): string {
-	defaultLanguage = summary.languages.includes(defaultLanguage)
-		? defaultLanguage
-		: summary.languages[0];
+	defaultLanguage =
+		defaultLanguage && summary.languages.includes(defaultLanguage)
+			? defaultLanguage
+			: summary.languages[0];
 	return (
 		fileheader() +
 		`
@@ -19,8 +20,13 @@ const selected = writable('${defaultLanguage}');
 let translation: Writable<Translation> = writable(defaultLanguage);
 
 export async function setLanguage(language: Language) {
-	const newTranslation = await import('./${folder}/' + language);
-	selected.set(language);
+	let lang = language;
+	if(!availableLanguages.includes(language)) {
+		lang = '${defaultLanguage}';
+		console.warn('language', language, 'is not available')
+	}
+	const newTranslation = await import('./${folder}/' + lang);
+	selected.set(lang);
 	translation.set(newTranslation);
 }
 
@@ -28,10 +34,10 @@ export const t = derived([translation], ([$translation]) => {
 	return $translation;
 });
 
-export const selectedLanguages = derived([selected], ([$selected]) => {
+export const selectedLanguage = derived([selected], ([$selected]) => {
 	return $selected;
 });
 `
-		// TODO: implement utillity to select most fitting language from simple string or from Accept-Language header
 	);
 }
+ 

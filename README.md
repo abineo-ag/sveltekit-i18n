@@ -4,7 +4,7 @@
 [![Beta](https://img.shields.io/badge/status-stable--beta-important)](#sveltekit-auto-typed-i18n)
 [![npm](https://img.shields.io/npm/v/@rokkett/sveltekit-i18n)](#sveltekit-auto-typed-i18n)
 
-Rollup/Vite Plugin to transpile translations from JSON into TypeScript for Sveltekit.
+Vite Plugin to transpile translations from JSON into TypeScript for Sveltekit (TS).
 
 -   [Documentation](https://gitlab.com/rokkett/sveltekit-i18n/-/blob/main/DOCS.md)
 -   [NPM](https://www.npmjs.com/package/@rokkett/sveltekit-i18n)
@@ -14,7 +14,7 @@ Rollup/Vite Plugin to transpile translations from JSON into TypeScript for Svelt
 
 This library is ready for production, but do so with causion.
 There are lot of tests that need to be written and possibly some bugs to be fixed.
-We do not expect to have breaking bugs or introduce breaking changes.
+We do not expect to introduce breaking changes.
 
 Found a bug? -> [Contributing](#contributing)
 

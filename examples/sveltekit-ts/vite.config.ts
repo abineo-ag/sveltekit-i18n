@@ -1,9 +1,9 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import type { UserConfig } from 'vite';
-import plugin from '../../dist';
+import i18n from '../..';
 
 const config: UserConfig = {
-	plugins: [plugin(), sveltekit()],
+	plugins: [i18n(), sveltekit()],
 };
 
 export default config;

@@ -23,7 +23,7 @@ export default function (options: PluginOptions) {
 
 	configure(options.defaultParamType);
 
-	function parseFile(filename: string): Translation {
+	function parseFile(filename: string): Translation | null {
 		const content = fs.readFileSync(path.join(srcDir, filename), { encoding: 'utf8' });
 		return parse(toLanguageCode(filename), content);
 	}
@@ -40,7 +40,10 @@ export default function (options: PluginOptions) {
 				return false;
 			}
 		});
-		const translations = entries.map((filename) => parseFile(filename));
+		// @ts-ignore (no entry of translations is null)
+		const translations: Translation[] = entries
+			.map((filename) => parseFile(filename))
+			.filter((tr) => tr !== null);
 		const summary: Summary = toSummary(translations);
 		const files: [file: string, content: string][] = [
 			[path.join(outDir, 'types.ts'), toTypesFile(summary)],

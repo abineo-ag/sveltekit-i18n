@@ -67,12 +67,13 @@ export function toSummary(translations: Translation[]): Summary {
 		const keys: Set<string> = new Set();
 		items.forEach((item) => item[1].forEach((rsc) => keys.add(rsc.key)));
 
-		const sums = [];
+		const sums: any[] = [];
 		keys.forEach((key) => {
 			const rscItems: [string, Resource][] = items
 				.filter((item) => item[1].find((rsc) => rsc.key === key))
 				.map((item) => {
-					const rsc = item[1].find((rsc) => rsc.key === key);
+					// @ts-ignore (rsc is not undefined)
+					const rsc: Resource = item[1].find((rsc) => rsc.key === key);
 					return [item[0], rsc];
 				});
 			const languages = rscItems.map((item) => item[0]);
@@ -80,7 +81,7 @@ export function toSummary(translations: Translation[]): Summary {
 				const items = summarize(
 					rscItems
 						.filter((item) => 'items' in item[1])
-						// @ts-ignore ('items' in item[1] is not recognised)
+						// @ts-ignore ('items' in item[1] is defined)
 						.map((item) => [item[0], item[1].items])
 				);
 				sums.push({ key, items, languages });
@@ -89,7 +90,7 @@ export function toSummary(translations: Translation[]): Summary {
 					.filter((item) => 'params' in item[1])
 					// @ts-ignore ('params' in item[1] is defined)
 					.map((item) => item[1].params);
-				const params: Parameter[] = allParams.pop();
+				const params = allParams.pop();
 				let paramErr = false;
 				for (const p of allParams) {
 					if (!isEqual(params, p)) {
@@ -97,7 +98,6 @@ export function toSummary(translations: Translation[]): Summary {
 						break;
 					}
 				}
-				allParams.forEach((prms) => {});
 				sums.push({ key, params, languages, paramErr });
 			}
 		});
