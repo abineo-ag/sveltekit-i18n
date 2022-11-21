@@ -36,8 +36,7 @@
 		"lodash": "^4.17.21"
 	},
 	"files": [
-		"dist"
+		"js"
 	],
-	"main": "dist/index.js",
-	"types": "dist/index.d.ts"
+	"main": "js/index.js"
 }
