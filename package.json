@@ -1,6 +1,6 @@
 {
 	"name": "@rokkett/sveltekit-i18n",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"description": "Vite Plugin to transpile JSON into TypeScript for Sveltekit.",
 	"author": "Christoph Schneider",
 	"license": "ISC",
@@ -35,5 +35,6 @@
 		"jsonc": "^2.x",
 		"lodash": "^4.17.21"
 	},
-	"main": "js/index.js"
+	"main": "bundle/index.js",
+	"types": "bundle/index.d.ts"
 }

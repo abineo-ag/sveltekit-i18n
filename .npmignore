@@ -5,3 +5,6 @@ examples
 package-lock.json
 tsconfig.json
 *.yml
+src
+js-src
+DOCS.md

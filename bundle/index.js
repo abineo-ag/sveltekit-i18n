@@ -28,7 +28,7 @@ function plugin(opts = defaultOptions) {
 	};
 }
 
-exports = plugin;
+module.exports = plugin;
 
 // https://regex101.com/r/duqj7S/1
 const VALID_LANG = /^[a-z]{2,}(-[a-z]{2,})*$/gi; //new RegExp(/^[a-z]{2,}(-[a-z]{2,})*$/gi);
