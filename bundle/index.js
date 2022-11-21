@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const jsonc = require('jsonc/lib/jsonc.safe');
+const jsonc = require('jsonc').safe;
 const lodash = require('lodash');
 
 const defaultOptions = {
@@ -13,7 +13,8 @@ const defaultOptions = {
 };
 
 function plugin(opts = defaultOptions) {
-	const options = { ...defaultOptions, ...opts };
+	let options = defaultOptions;
+	lodash.assign(options, opts);
 	let watcher;
 
 	return {
