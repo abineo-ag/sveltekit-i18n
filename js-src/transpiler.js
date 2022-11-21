@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFile } from 'fs';
+import fs from 'fs';
 import path from 'path';
 import { toGitignore } from './generate/gitignore';
 import { toIndexFile } from './generate/index-file';

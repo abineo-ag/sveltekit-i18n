@@ -1,5 +1,5 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import i18n from '../..';
+const i18n = require('../../js/index.js');
 
 const config = {
 	plugins: [i18n(), sveltekit()],
