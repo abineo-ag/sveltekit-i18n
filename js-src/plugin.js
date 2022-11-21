@@ -22,7 +22,7 @@ export function plugin(opts = defaultOptions) {
 			watcher = fs.watch(watchDir, { recursive: false }, lodash.debounce(transpile, 2000));
 		},
 		buildEnd() {
-			watcher.close();
+			if (watcher && watcher.close) watcher.close();
 		},
 	};
 }

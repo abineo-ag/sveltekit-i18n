@@ -25,7 +25,7 @@ export async function setLanguage(language: Language) {
 		lang = '${defaultLanguage}';
 		console.warn('language', language, 'is not available')
 	}
-	const newTranslation = await import('./${folder}/' + lang);
+	const newTranslation = await import(/* @vite-ignore */ './${folder}/' + lang);
 	selected.set(lang);
 	translation.set(newTranslation);
 }

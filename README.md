@@ -12,9 +12,9 @@ Vite Plugin to transpile translations from JSON into TypeScript for Sveltekit (T
 
 ## Notice
 
-This library is ready for production, but do so with causion.
+Use this library with causion.
 There are lot of tests that need to be written and possibly some bugs to be fixed.
-We do not expect to introduce breaking changes.
+But we do not expect to introduce breaking changes.
 
 Found a bug? -> [Contributing](#contributing)
 

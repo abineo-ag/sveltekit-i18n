@@ -39,7 +39,7 @@ export function plugin(opts: Partial<PluginOptions> = defaultOptions) {
 			watcher = watch(watchDir, { recursive: false }, debounce(transpile, 2000));
 		},
 		buildEnd() {
-			watcher.close();
+			if (watcher && watcher.close) watcher.close();
 		},
 	};
 }
