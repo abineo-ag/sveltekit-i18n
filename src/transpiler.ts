@@ -1,4 +1,4 @@
-import fs from 'fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFile } from 'fs';
 import path from 'path';
 import { toGitignore } from './generate/gitignore';
 import { toIndexFile } from './generate/index-file';
@@ -17,19 +17,18 @@ export default function (options: PluginOptions) {
 	const outDir = path.join(...options.out.split(/[\\\/]+/g));
 	const tsOutDir = path.join(outDir, options.folder);
 
-	if (!fs.existsSync(srcDir)) throw `options.src: '${options.src}' must exists`;
-	if (!fs.statSync(srcDir).isDirectory())
-		throw `options.src: '${options.src}' must be a directory`;
+	if (!existsSync(srcDir)) throw `options.src: '${options.src}' must exists`;
+	if (!statSync(srcDir).isDirectory()) throw `options.src: '${options.src}' must be a directory`;
 
 	configure(options.defaultParamType);
 
 	function parseFile(filename: string): Translation | null {
-		const content = fs.readFileSync(path.join(srcDir, filename), { encoding: 'utf8' });
+		const content = readFileSync(path.join(srcDir, filename), { encoding: 'utf8' });
 		return parse(toLanguageCode(filename), content);
 	}
 
 	function transpile() {
-		const entries = fs.readdirSync(srcDir).filter((file) => {
+		const entries = readdirSync(srcDir).filter((file) => {
 			if (!file.includes('.json')) return false; // '.jsonc' matches as well
 			const lang = file.split('.json')[0]; // works for '.jsonc' matches as well
 			if (new RegExp(VALID_LANG).test(lang)) return true;
@@ -64,10 +63,10 @@ export default function (options: PluginOptions) {
 				toTranslationFile(translation),
 			]);
 		});
-		fs.rmSync(tsOutDir, { recursive: true, force: true });
-		fs.mkdirSync(tsOutDir, { recursive: true });
+		rmSync(tsOutDir, { recursive: true, force: true });
+		mkdirSync(tsOutDir, { recursive: true });
 		files.forEach(([file, content]) => {
-			fs.writeFile(file, content, 'utf8', (err) => {
+			writeFile(file, content, 'utf8', (err) => {
 				err && console.error(err);
 			});
 		});

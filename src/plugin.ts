@@ -1,4 +1,4 @@
-import fs from 'fs';
+import { FSWatcher, watch } from 'fs';
 import { debounce } from 'lodash-es';
 import transpiler from './transpiler';
 
@@ -30,13 +30,13 @@ export const defaultOptions: PluginOptions = {
 
 export function plugin(opts: Partial<PluginOptions> = defaultOptions) {
 	const options = { ...defaultOptions, ...opts };
-	let watcher: fs.FSWatcher;
+	let watcher: FSWatcher;
 
 	return {
 		name: 'rokkett-sveltekit-i18n',
 		buildStart() {
 			const { watchDir, transpile } = transpiler(options);
-			watcher = fs.watch(watchDir, { recursive: false }, debounce(transpile, 2000));
+			watcher = watch(watchDir, { recursive: false }, debounce(transpile, 2000));
 		},
 		buildEnd() {
 			watcher.close();
