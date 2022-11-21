@@ -23,7 +23,7 @@ function plugin(opts = defaultOptions) {
 			watcher = fs.watch(watchDir, { recursive: false }, lodash.debounce(transpile, 2000));
 		},
 		buildEnd() {
-			watcher.close();
+			if (watcher && watcher.close) watcher.close();
 		},
 	};
 }
@@ -38,18 +38,19 @@ function transpiler(options) {
 	const outDir = path.join(...options.out.split(/[\\\/]+/g));
 	const tsOutDir = path.join(outDir, options.folder);
 
-	if (!existsSync(srcDir)) throw `options.src: '${options.src}' must exists`;
-	if (!statSync(srcDir).isDirectory()) throw `options.src: '${options.src}' must be a directory`;
+	if (!fs.existsSync(srcDir)) throw `options.src: '${options.src}' must exists`;
+	if (!fs.statSync(srcDir).isDirectory())
+		throw `options.src: '${options.src}' must be a directory`;
 
 	configure(options.defaultParamType);
 
 	function parseFile(filename) {
-		const content = readFileSync(path.join(srcDir, filename), { encoding: 'utf8' });
+		const content = fs.readFileSync(path.join(srcDir, filename), { encoding: 'utf8' });
 		return parse(toLanguageCode(filename), content);
 	}
 
 	function transpile() {
-		const entries = readdirSync(srcDir).filter((file) => {
+		const entries = fs.readdirSync(srcDir).filter((file) => {
 			if (!file.includes('.json')) return false; // '.jsonc' matches as well
 			const lang = file.split('.json')[0]; // works for '.jsonc' matches as well
 			if (new RegExp(VALID_LANG).test(lang)) return true;
@@ -83,10 +84,10 @@ function transpiler(options) {
 				toTranslationFile(translation),
 			]);
 		});
-		rmSync(tsOutDir, { recursive: true, force: true });
-		mkdirSync(tsOutDir, { recursive: true });
+		fs.rmSync(tsOutDir, { recursive: true, force: true });
+		fs.mkdirSync(tsOutDir, { recursive: true });
 		files.forEach(([file, content]) => {
-			writeFile(file, content, 'utf8', (err) => {
+			fs.writeFile(file, content, 'utf8', (err) => {
 				err && console.error(err);
 			});
 		});
