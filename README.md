@@ -65,8 +65,8 @@ export default config;
 
 ```html
 <script lang="ts">
-	import { setLanguage, t } from '$lib/i18n';
-	setLanguage('de-CH');
+	import { selectedLanguage, t } from '$lib/i18n';
+	selectedLanguage.set('de-CH');
 </script>
 
 <main>

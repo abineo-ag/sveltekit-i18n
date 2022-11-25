@@ -15,29 +15,21 @@ import defaultLanguage from './${folder}/${defaultLanguage}';
 
 export const availableLanguages: Language[] = ['${summary.languages.join("', '")}'];
 
-const selected = writable('${defaultLanguage}');
+export const selectedLanguage = writable('${defaultLanguage}');
 
-let translation: Writable<Translation> = writable(defaultLanguage);
+const translations: {[key: string]: Translation} = {
+	'${defaultLanguage}': defaultLanguage
+};
 
-export async function setLanguage(language: Language) {
-	let lang = language;
-	if(!availableLanguages.includes(language)) {
-		lang = '${defaultLanguage}';
-		console.warn('language', language, 'is not available')
+export const t = derived([selectedLanguage], ([$lang]) => {
+	if(translations[$lang]) return translations[$lang];
+	if(!availableLanguages.includes($lang)) {
+		console.warn('language', $lang, 'is not available');
+		return translations['${defaultLanguage}'];
 	}
-	const newTranslation = await import(/* @vite-ignore */ './${folder}/' + lang);
-	selected.set(lang);
-	translation.set(newTranslation);
-}
-
-export const t = derived([translation], ([$translation]) => {
-	return $translation;
-});
-
-export const selectedLanguage = derived([selected], ([$selected]) => {
-	return $selected;
+	translations[$lang] = await import(/* @vite-ignore */ './${folder}/' + $lang);
+	return translations[$lang];
 });
 `
 	);
 }
- 
