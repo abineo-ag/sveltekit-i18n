@@ -243,7 +243,7 @@ const dictionary: {[key: string]: Translation} = {
 };
 const translation: Writable<Translation> = writable(defaultTranslation);
 
-selectedLanguage.subscribe(async ([lang]) => {
+selectedLanguage.subscribe(async (lang) => {
 	if(dictionary[lang]) translation.set(dictionary[lang]);
 	if(!availableLanguages.includes(lang)) {
 		console.warn('language', lang, 'is not available');
