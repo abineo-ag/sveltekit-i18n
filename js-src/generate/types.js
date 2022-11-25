@@ -28,7 +28,7 @@ export function toTypesFile(summary) {
 	return (
 		fileheader() +
 		`
-export type Language = '${summary.languages.join("' | '")}';
+export type Language = '${summary.languages.join("' | '")}' | string;
 
 export interface Translation {
 ${toLines(summary.items)}
