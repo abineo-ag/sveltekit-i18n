@@ -232,24 +232,29 @@ function toIndexFile(summary, folder, defaultLanguage) {
 		`
 import { writable, derived, type Writable } from 'svelte/store';
 import type { Language, Translation } from './types';
-import defaultLanguage from './${folder}/${defaultLanguage}';
+import defaultTranslation from './${folder}/${defaultLanguage}';
 
 export const availableLanguages: Language[] = ['${summary.languages.join("', '")}'];
 
 export const selectedLanguage = writable('${defaultLanguage}');
 
-const translations: {[key: string]: Translation} = {
-	'${defaultLanguage}': defaultLanguage
+const dictionary: {[key: string]: Translation} = {
+	'${defaultLanguage}': defaultTranslation
 };
+const translation: Writable<Translation> = writable(defaultTranslation);
 
-export const t = derived([selectedLanguage], ([$lang]) => {
-	if(translations[$lang]) return translations[$lang];
-	if(!availableLanguages.includes($lang)) {
-		console.warn('language', $lang, 'is not available');
-		return translations['${defaultLanguage}'];
+selectedLanguage.subscribe(async ([lang]) => {
+	if(dictionary[lang]) translation.set(dictionary[lang]);
+	if(!availableLanguages.includes(lang)) {
+		console.warn('language', lang, 'is not available');
+		translation.set(dictionary['${defaultLanguage}']);
 	}
-	translations[$lang] = await import(/* @vite-ignore */ './${folder}/' + $lang);
-	return translations[$lang];
+	dictionary[lang] = await import(/* @vite-ignore */ './${folder}/' + lang);
+	translation.set(dictionary[lang]);
+});
+
+export const t = derived([translation], ([$translation]) => {
+	return $translation;
 });
 `
 	);
