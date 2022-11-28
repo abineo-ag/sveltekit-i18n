@@ -27,7 +27,7 @@ selectedLanguage.subscribe(async (lang) => {
 		console.warn('language', lang, 'is not available');
 		translation.set(dictionary['${defaultLanguage}']);
 	}
-	dictionary[lang] = await import(/* @vite-ignore */ './${folder}/' + lang);
+	dictionary[lang] = (await import(/* @vite-ignore */ './dist/' + lang)).default;
 	translation.set(dictionary[lang]);
 });
 
