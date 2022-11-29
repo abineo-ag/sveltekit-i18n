@@ -33,7 +33,7 @@ export function plugin(opts: Partial<PluginOptions> = defaultOptions) {
 	let watcher: FSWatcher;
 
 	return {
-		name: 'rokkett-sveltekit-i18n',
+		name: 'abineo-sveltekit-i18n',
 		buildStart() {
 			const { watchDir, transpile } = transpiler(options);
 			watcher = watch(watchDir, { recursive: false }, debounce(transpile, 2000));

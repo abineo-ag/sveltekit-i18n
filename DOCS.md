@@ -3,13 +3,13 @@
 Install `sveltekit-i18n` as a dev dependency.
 
 ```sh
-npm install --save-dev @rokkett/sveltekit-i18n
+npm install --save-dev @abineo/sveltekit-i18n
 ```
 
 ```ts
 // vite.config.ts
 import { sveltekit } from '@sveltejs/kit/vite';
-import i18n from '@rokkett/sveltekit-i18n';
+import i18n from '@abineo/sveltekit-i18n';
 
 export default {
 	plugins: [i18n(), sveltekit()],

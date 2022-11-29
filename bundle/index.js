@@ -18,7 +18,7 @@ function plugin(opts = defaultOptions) {
 	let watcher;
 
 	return {
-		name: 'rokkett-sveltekit-i18n',
+		name: 'abineo-sveltekit-i18n',
 		buildStart() {
 			const { watchDir, transpile } = transpiler(options);
 			watcher = fs.watch(watchDir, { recursive: false }, lodash.debounce(transpile, 2000));
