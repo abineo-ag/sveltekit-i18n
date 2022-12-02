@@ -124,7 +124,7 @@ The plugin creates a index.ts in your output directory.
 ```html
 // anywhere in your project
 <script lang="ts">
-	import { availableLanguages, selectedLanguage, t } from '$lib/i18n';
+	import { languages, languageCodes, language, t } from '$lib/i18n';
 </script>
 
 <p>{$t.not_found('foo')}</p>
