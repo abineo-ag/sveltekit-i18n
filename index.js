@@ -253,7 +253,7 @@ export const languages: { code: Language, name: string }[] = [
 	${languages.join('\n\t')}
 ];
 
-export const language = writable('${defaultLanguage}');
+export const language: Writable<Language> = writable('${defaultLanguage}');
 
 const dictionary: {[key: string]: Translation} = {
 	'${defaultLanguage}': defaultTranslation
