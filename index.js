@@ -227,15 +227,19 @@ function toIndexFile(summary, folder, defaultLanguage) {
 		defaultLanguage && summary.languages.includes(defaultLanguage)
 			? defaultLanguage
 			: summary.languages[0];
-	const languages = summary.languages.map((lang) => {
-		return {
-			code: lang,
-			name: new Intl.DisplayNames(lang, {
-				type: 'language',
-				languageDisplay: 'standard',
-			}).of(lang),
-		};
-	});
+	const languages = summary.languages
+		.map((lang) => {
+			return {
+				code: lang,
+				name: new Intl.DisplayNames(lang, {
+					type: 'language',
+					languageDisplay: 'standard',
+				}).of(lang),
+			};
+		})
+		.map((lang) => {
+			return `{ code: '${lang.code}', name: '${lang.name}' },`;
+		});
 	return (
 		fileheader() +
 		`
@@ -245,7 +249,9 @@ import defaultTranslation from './${folder}/${defaultLanguage}';
 
 export const languageCodes: Language[] = ['${summary.languages.join("', '")}'];
 
-export const languages: { code: Language, name: string }[] = ${JSON.stringify(languages)};
+export const languages: { code: Language, name: string }[] = [
+	${languages.join('\n')}
+];
 
 export const language = writable('${defaultLanguage}');
 
@@ -256,7 +262,7 @@ const translation: Writable<Translation> = writable(defaultTranslation);
 
 language.subscribe(async (lang) => {
 	if(dictionary[lang]) translation.set(dictionary[lang]);
-	if(!availableLanguages.includes(lang)) {
+	if(!languageCodes.includes(lang)) {
 		console.warn('language', lang, 'is not available');
 		translation.set(dictionary['${defaultLanguage}']);
 	}
