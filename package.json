@@ -1,6 +1,6 @@
 {
 	"name": "@abineo/sveltekit-i18n",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "Vite Plugin to transpile JSON into TypeScript for Sveltekit.",
 	"author": "Christoph Schneider",
 	"license": "ISC",

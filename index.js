@@ -250,7 +250,7 @@ import defaultTranslation from './${folder}/${defaultLanguage}';
 export const languageCodes: Language[] = ['${summary.languages.join("', '")}'];
 
 export const languages: { code: Language, name: string }[] = [
-	${languages.join('\n')}
+	${languages.join('\n\t')}
 ];
 
 export const language = writable('${defaultLanguage}');
