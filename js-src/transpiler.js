@@ -7,8 +7,8 @@ import { toTranslationFile } from './generate/translation';
 import { toTypesFile } from './generate/types';
 import { parse, configure, toLanguageCode, toSummary } from './parser';
 
-// https://regex101.com/r/duqj7S/1
-const VALID_LANG = /^[a-z]{2,}(-[a-z]{2,})*$/gi; //new RegExp(/^[a-z]{2,}(-[a-z]{2,})*$/gi);
+// https://regex101.com/r/JgmSw2/1
+const VALID_LANG = /^[a-z]{1,}(-[a-z]{1,})*$/gi;
 
 export default function (options) {
 	const srcDir = path.join(...options.src.split(/[\\\/]+/g));

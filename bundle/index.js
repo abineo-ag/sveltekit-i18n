@@ -31,8 +31,8 @@ function plugin(opts = defaultOptions) {
 
 module.exports = plugin;
 
-// https://regex101.com/r/duqj7S/1
-const VALID_LANG = /^[a-z]{2,}(-[a-z]{2,})*$/gi; //new RegExp(/^[a-z]{2,}(-[a-z]{2,})*$/gi);
+// https://regex101.com/r/JgmSw2/1
+const VALID_LANG = /^[a-z]{1,}(-[a-z]{1,})*$/gi;
 
 function transpiler(options) {
 	const srcDir = path.join(...options.src.split(/[\\\/]+/g));
