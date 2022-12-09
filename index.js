@@ -351,9 +351,9 @@ function toTranslationFile(translation) {
 									template = template.split(string).join('${' + param.name + '}');
 							});
 						});
-						line += `(${params}): string => \`${template}\`,`;
+						line += `(${params}): string => \`${template.replaceAll("'", "\\'")}\`,`;
 					} else {
-						line += `'${item.template}',`;
+						line += `'${item.template.replaceAll("'", "\\'")}',`;
 					}
 				} else {
 					line += '{\n';
