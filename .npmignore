@@ -1,5 +1,5 @@
+.github
 node_modules
-coverage
 .prettierrc
 package-lock.json
 DOCS.md

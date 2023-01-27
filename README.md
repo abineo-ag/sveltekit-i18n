@@ -4,10 +4,7 @@
 
 Vite Plugin to transpile translations from JSON into TypeScript for Sveltekit (TS).
 
--   [Documentation](https://gitlab.com/abineo/sveltekit-i18n/-/blob/main/DOCS.md)
--   [NPM](https://www.npmjs.com/package/@abineo/sveltekit-i18n)
--   [GitLab](https://gitlab.com/abineo/sveltekit-i18n)
-
+[📖 Documentation](https://github.com/abineo-ag/svelte-forms/blob/main/DOCS.md)
 ## Notice
 
 Use this library with causion.
@@ -76,10 +73,10 @@ export default config;
 
 ## Contributing
 
-If you think you found a bug: [open a issue](https://gitlab.com/abineo/sveltekit-i18n/-/issues).
+If you think you found a bug: [open a issue](https://github.com/abineo-ag/sveltekit-i18n/issues).
 Feature request are also welcome.
 
 ## License
 
-This library is distributed under the terms of the [ISC License](./LICENSE).  
+This library is distributed under the terms of the [ISC License](https://github.com/abineo-ag/sveltekit-i18n/blob/main/LICENSE).  
 Find an easy explanation on [choosealicense.com/licenses/isc](https://choosealicense.com/licenses/isc/).

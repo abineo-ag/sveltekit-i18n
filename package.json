@@ -1,14 +1,12 @@
 {
 	"name": "@abineo/sveltekit-i18n",
-	"version": "2.0.4",
+	"version": "2.0.5",
 	"description": "Vite Plugin to transpile JSON into TypeScript for Sveltekit.",
-	"author": "Christoph Schneider",
 	"license": "ISC",
 	"repository": {
 		"type": "git",
-		"url": "git+ssh://git@gitlab.com/abineo/sveltekit-i18n.git"
+		"url": "git+ssh://git@github.com/abineo-ag/sveltekit-i18n.git"
 	},
-	"homepage": "https://gitlab.com/abineo/sveltekit-i18n/-/blob/main/README.md",
 	"keywords": [
 		"i18n",
 		"typscript",
@@ -16,7 +14,7 @@
 		"l10n"
 	],
 	"bugs": {
-		"url": "https://gitlab.com/abineo/sveltekit-i18n/-/issues"
+		"url": "https://github.com/abineo-ag/sveltekit-i18n/issues"
 	},
 	"devDependencies": {
 		"@types/lodash": "^4.14.189",
