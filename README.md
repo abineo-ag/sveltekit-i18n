@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/@abineo/sveltekit-i18n)](https://www.npmjs.com/package/@abineo/sveltekit-i18n)
 
-Vite Plugin to transpile translations from JSON into TypeScript for Sveltekit (TS).
+Vite Plugin to transpile translations from JSON into TypeScript for Sveltekit.
 
 [📖 Documentation](https://github.com/abineo-ag/sveltekit-i18n/blob/main/DOCS.md)
 ## Notice
