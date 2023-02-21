@@ -249,6 +249,8 @@ import defaultTranslation from './${folder}/${defaultLanguage}';
 
 export const languageCodes: Language[] = ['${summary.languages.join("', '")}'];
 
+export const defaultLanguage: Language = '${defaultLanguage}';
+
 export const languages: { code: Language, name: string }[] = [
 	${languages.join('\n\t')}
 ];
