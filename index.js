@@ -268,7 +268,13 @@ language.subscribe(async (lang) => {
 		console.warn('language', lang, 'is not available');
 		translation.set(dictionary['${defaultLanguage}']);
 	}
-	dictionary[lang] = (await import(/* @vite-ignore */ './dist/' + lang)).default;
+	${summary.languages
+		.map(
+			(lang) =>
+				`if (lang === '${lang}') dictionary[lang] = (await import('./dist/${lang}')).default;`
+		)
+		.join('\n	else ')}
+	else dictionary[lang] = (await import('./dist/${defaultLanguage}')).default;
 	translation.set(dictionary[lang]);
 });
 
